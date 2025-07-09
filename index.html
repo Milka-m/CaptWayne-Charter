@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ejemplo Menú Responsive sin JavaScript</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+  }
+  header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  /* Ocultar checkbox */
+  #menu-toggle {
+    display: none;
+  }
+  /* Estilos botón hamburguesa */
+  .menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    user-select: none;
+  }
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  nav ul li {
+    margin-left: 20px;
+  }
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  nav ul li a:hover {
+    text-decoration: underline;
+  }
+  /* Responsive para móvil */
+  @media (max-width: 768px) {
+    .menu-icon {
+      display: block;
+    }
+    nav ul {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: #333;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      padding: 0;
+    }
+    nav ul li {
+      margin: 10px 0;
+      text-align: center;
+    }
+    /* Mostrar menú cuando checkbox está activo */
+    #menu-toggle:checked + label + nav ul {
+      display: flex;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Mi Sitio</h1>
+  <!-- Checkbox oculto -->
+  <input type="checkbox" id="menu-toggle" />
+  <!-- Label como botón hamburguesa -->
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+  <nav>
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Acerca</a></li>
+      <li><a href="#">Servicios</a></li>
+      <li><a href="#">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+<main style="padding: 20px;">
+  <h2>Bienvenido a mi página</h2>
+  <p>Contenido de ejemplo para probar el menú responsive sin JavaScript.</p>
+</main>
+</body>
+</html>
