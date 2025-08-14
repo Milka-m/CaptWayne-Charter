@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explora Tours | Capt. Wayne Charters</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-image: url('https://images.fineartamerica.com/images/artworkimages/medium/2/coral-reef-roatan-honduras-adventure-photo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .tour-card:hover img {
+      transform: scale(1.05);
+    }
+    .tour-card img {
+      transition: transform 0.4s ease;
+    }
+    .fade-in {
+      animation: fadeIn 1s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .logo-text {
+      font-family: 'Times New Roman', serif;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #facc15;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    .bg-glass {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(6px);
+    }
+    .transparent-banner {
+      background: rgba(10, 100, 90, 0.85);
+      backdrop-filter: blur(3px);
+    }
+    .menu-icon {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      user-select: none;
+      color: white;
+    }
+    @media (max-width: 767px) {
+      .menu-icon { display: block; }
+      nav ul {
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.85);
+        position: absolute;
+        top: 60px;
+        right: 0;
+        left: 0;
+        margin: 0;
+        padding: 1rem 0;
+        border-top: 1px solid #facc15;
+        z-index: 9999;
+      }
+      nav ul li {
+        margin: 0.5rem 0;
+        text-align: center;
+      }
+    }
+
+    /* Dropdown perfil */
+    .profile-container {
+      position: relative;
+    }
+    .profile-dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      min-width: 160px;
+      z-index: 50;
+      flex-direction: column;
+    }
+    .profile-dropdown a,
+    .profile-dropdown button {
+      padding: 0.5rem 1rem;
+      text-align: left;
+      width: 100%;
+      color: #1f2937;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .profile-dropdown a:hover,
+    .profile-dropdown button:hover {
+      background-color: #facc15;
+      color: #1f2937;
+    }
+    .profile-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body class="text-gray-800">
+
+  <!-- Header -->
+  <header id="main-header" class="fixed top-0 left-0 w-full z-50 bg-transparent transition-colors duration-300">
+    <nav class="flex flex-wrap justify-center items-center px-4 md:px-6 py-4 text-white relative gap-2 md:gap-6">
+      
+      <!-- Botón Hamburguesa -->
+      <div class="menu-icon md:hidden ml-auto text-3xl cursor-pointer">&#9776;</div>
+
+      <!-- Menú -->
+      <ul class="hidden md:flex flex-col md:flex-row font-medium text-sm md:text-base items-center space-x-0 md:space-x-6">
+        <li><a href="index.html" class="hover:text-yellow-300 transition">Inicio</a></li>
+        <li><a href="tours.html" class="hover:text-yellow-300 transition">Tours</a></li>
+        <li><a href="galeria.html" class="hover:text-yellow-300 transition">Galería</a></li>
+        <li><a href="mapa.html" class="hover:text-yellow-300 transition">Mapa</a></li>
+        <li><a href="sobrenosotros.html" class="hover:text-yellow-300 transition">Sobre Nosotros</a></li>
+        <li><a href="misreservas.html" class="hover:text-yellow-300 transition">Mis Reservas</a></li>
+        <li><a href="contacto.html" class="hover:text-yellow-300 transition">Contacto</a></li>
+        <li><a href="calendario.html" class="hover:text-yellow-300 transition">Calendario</a></li>
+        <li>
+          <a href="carrito.html" class="relative flex items-center hover:text-yellow-400 transition">
+            🛒 <span class="ml-1">Carrito</span>
+            <span id="cart-count" class="ml-1 bg-yellow-400 text-xs text-black px-2 py-0.5 rounded-full">0</span>
+          </a>
+        </li>
+
+        <!-- Icono de perfil -->
+        <li id="li-profile" class="profile-container">
+          <button id="profile-toggle" class="profile-btn" aria-haspopup="true" aria-expanded="false" title="Perfil de Usuario">
+            <svg viewBox="0 0 64 64" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="4"/>
+              <circle cx="32" cy="22" r="8" stroke="currentColor" stroke-width="4" fill="none"/>
+              <path d="M12 48c4-8 12-12 20-12s16 4 20 12" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <div id="profile-dropdown" class="profile-dropdown flex flex-col">
+            <a href="perfil.html">Mi perfil</a>
+            <a href="misreservas.html">Mis reservas</a>
+            <a href="configuracion.html">Configuración</a>
+            <button id="logout-btn">Cerrar sesión</button>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Banner -->
+  <header class="transparent-banner text-white py-20 px-4 md:px-6 text-center shadow-md mt-20">
+    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">Explora Nuestros Tours</h1>
+    <p class="text-lg md:text-xl mt-2 text-white/90">Aventuras inolvidables en tierra y mar con Capt. Wayne</p>
+  </header>
+
+  <!-- Tours -->
+  <section class="py-16 px-4 md:px-20 fade-in">
+    <div class="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 bg-glass rounded-xl p-6">
+
+      <!-- TOUR 1 -->
+      <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+        <img src="fotos/WhatsApp Image 2025-06-29 at 16.04.20.jpeg" alt="Banana Boat" class="w-full h-52 object-cover">
+        <div class="p-6">
+          <h2 class="text-2xl font-bold text-teal-700 mb-1">Banana Boat</h2>
+          <p class="text-gray-600 text-sm mb-2">Aventura llena de adrenalina sobre las olas. Ideal para grupos y familias.</p>
+          <p class="text-lg font-semibold text-gray-800 mb-2">$40 USD</p>
+          <button data-id="1" class="details-btn bg-yellow-400 text-gray-900 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 transition mb-2">Ver detalles</button>
+          <div id="details-1" class="mt-2 text-sm text-gray-700 hidden">
+            🚤 Adrenalina total en el mar Caribe.<br>⏱ 30 min<br>🛟 Incluye chaleco salvavidas y guía.
+          </div>
+          <button data-id="1" class="add-to-cart mt-4 bg-teal-700 text-white px-4 py-2 rounded-full font-semibold hover:bg-teal-600 transition w-full">Añadir al carrito</button>
+        </div>
+      </div>
+
+      <!-- TOUR 2 -->
+      <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+        <img src="fotos/8.jpeg" alt="Cayos Cochinos" class="w-full h-52 object-cover">
+        <div class="p-6">
+          <h2 class="text-2xl font-bold text-teal-700 mb-1">Tour a Cayos Cochinos</h2>
+          <p class="text-gray-600 text-sm mb-2">Un paraíso de islas vírgenes. Transporte, almuerzo y playa incluidos.</p>
+          <p class="text-lg font-semibold text-gray-800 mb-2">$85 USD</p>
+          <button data-id="2" class="details-btn bg-yellow-400 text-gray-900 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 transition mb-2">Ver detalles</button>
+          <div id="details-2" class="mt-2 text-sm text-gray-700 hidden">
+            🏝 Viaje en lancha con snorkeling.<br>🍴 Almuerzo incluido<br>⏱ 6 horas de aventura.
+          </div>
+          <button data-id="2" class="add-to-cart mt-4 bg-teal-700 text-white px-4 py-2 rounded-full font-semibold hover:bg-teal-600 transition w-full">Añadir al carrito</button>
+        </div>
+      </div>
+
+      <!-- TOUR 3 -->
+      <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+        <img src="fotos/WhatsApp Image 2025-06-29 at 16.04.26.jpeg" alt="Pesca Deportiva" class="w-full h-52 object-cover">
+        <div class="p-6">
+          <h2 class="text-2xl font-bold text-teal-700 mb-1">Pesca Deportiva</h2>
+          <p class="text-gray-600 text-sm mb-2">Captura Wahoo o Mahi-Mahi con los mejores equipos y guía profesional.</p>
+          <p class="text-lg font-semibold text-gray-800 mb-2">$120 USD</p>
+          <button data-id="3" class="details-btn bg-yellow-400 text-gray-900 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 transition mb-2">Ver detalles</button>
+          <div id="details-3" class="mt-2 text-sm text-gray-700 hidden">
+            🎣 Pesca en alta mar.<br>🐟 Wahoo, Mahi-Mahi, Barracuda<br>⏱ 4 horas con snacks incluidos.
+          </div>
+          <button data-id="3" class="add-to-cart mt-4 bg-teal-700 text-white px-4 py-2 rounded-full font-semibold hover:bg-teal-600 transition w-full">Añadir al carrito</button>
+        </div>
+      </div>
+
+      <!-- TOUR 4 -->
+      <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+        <img src="fotos/Snorkeling.jpeg" alt="Snorkeling" class="w-full h-52 object-cover">
+        <div class="p-6">
+          <h2 class="text-2xl font-bold text-teal-700 mb-1">Snorkeling</h2>
+          <p class="text-gray-600 text-sm mb-2">Explora arrecifes con guía. Incluye equipo completo.</p>
+          <p class="text-lg font-semibold text-gray-800 mb-2">$50 USD</p>
+          <button data-id="4" class="details-btn bg-yellow-400 text-gray-900 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 transition mb-2">Ver detalles</button>
+          <div id="details-4" class="mt-2 text-sm text-gray-700 hidden">
+            🐠 Equipo incluido<br>🏝 Arrecifes espectaculares<br>⏱ 1.5 horas.
+          </div>
+          <button data-id="4" class="add-to-cart mt-4 bg-teal-700 text-white px-4 py-2 rounded-full font-semibold hover:bg-teal-600 transition w-full">Añadir al carrito</button>
+        </div>
+      </div>
+
+      <!-- TOUR 5 -->
+      <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+        <img src="fotos/isla.jpg" alt="Tour alrededor de la isla" class="w-full h-52 object-cover">
+        <div class="p-6">
+          <h2 class="text-2xl font-bold text-teal-700 mb-1">Tour Alrededor de la Isla</h2>
+          <p class="text-gray-600 text-sm mb-2">Recorrido terrestre por playas, cultura y paisajes de Roatán.</p>
+          <p class="text-lg font-semibold text-gray-800 mb-2">$65 USD</p>
+          <button data-id="5" class="details-btn bg-yellow-400 text-gray-900 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 transition mb-2">Ver detalles</button>
+          <div id="details-5" class="mt-2 text-sm text-gray-700 hidden">
+            🚐 Transporte incluido<br>📷 Paradas turísticas<br>⏱ 4 horas con guía.
+          </div>
+          <button data-id="5" class="add-to-cart mt-4 bg-teal-700 text-white px-4 py-2 rounded-full font-semibold hover:bg-teal-600 transition w-full">Añadir al carrito</button>
+        </div>
+      </div>
+
+      <!-- TOUR 6 -->
+      <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+        <img src="fotos/5497ACDC-952D-4CA3-AA3B-7BFE9D8C2FEE_1_201_a.jpeg" alt="Tour a Pigeon Key" class="w-full h-52 object-cover">
+        <div class="p-6">
+          <h2 class="text-2xl font-bold text-teal-700 mb-1">Tour a Pigeon Key</h2>
+          <p class="text-gray-600 text-sm mb-2">Nado con tiburones y visita a la isla. Todo bajo supervisión segura.</p>
+          <p class="text-lg font-semibold text-gray-800 mb-2">$95 USD</p>
+          <button data-id="6" class="details-btn bg-yellow-400 text-gray-900 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 transition mb-2">Ver detalles</button>
+          <div id="details-6" class="mt-2 text-sm text-gray-700 hidden">
+            🦈 Nado supervisado<br>🏝 Entrada a la isla incluida<br>⏱ 5 horas de aventura.
+          </div>
+          <button data-id="6" class="add-to-cart mt-4 bg-teal-700 text-white px-4 py-2 rounded-full font-semibold hover:bg-teal-600 transition w-full">Añadir al carrito</button>
+        </div>
+      </div>
+
+      <!-- TOUR 7 -->
+      <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+        <img src="fotos/12.jpeg" alt="Transporte privado" class="w-full h-52 object-cover">
+        <div class="p-6">
+          <h2 class="text-2xl font-bold text-teal-700 mb-1">Transporte privado</h2>
+          <p class="text-gray-600 text-sm mb-2">Nuestro chofer te recoge y te lleva donde necesites.</p>
+          <p class="text-lg font-semibold text-gray-800 mb-2">$50 USD</p>
+          <button data-id="7" class="details-btn bg-yellow-400 text-gray-900 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 transition mb-2">Ver detalles</button>
+          <div id="details-7" class="mt-2 text-sm text-gray-700 hidden">
+            🚗 Transporte seguro y privado<br>⏱ Flexible según horario<br>🧳 Espacio para equipaje.
+          </div>
+          <button data-id="7" class="add-to-cart mt-4 bg-teal-700 text-white px-4 py-2 rounded-full font-semibold hover:bg-teal-600 transition w-full">Añadir al carrito</button>
+        </div>
+      </div>
+
+      <!-- TOUR 8 -->
+      <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+        <img src="fotos/WhatsApp Image 2025-06-29 at 16.04.36.jpeg" alt="Kayak" class="w-full h-52 object-cover">
+        <div class="p-6">
+          <h2 class="text-2xl font-bold text-teal-700 mb-1">Kayak</h2>
+          <p class="text-gray-600 text-sm mb-2">Remo en aguas cristalinas. Ideal para principiantes y expertos.</p>
+          <p class="text-lg font-semibold text-gray-800 mb-2">$30 USD</p>
+          <button data-id="8" class="details-btn bg-yellow-400 text-gray-900 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 transition mb-2">Ver detalles</button>
+          <div id="details-8" class="mt-2 text-sm text-gray-700 hidden">
+            🚣‍♂️ Equipo incluido<br>🌊 Rutas guiadas<br>⏱ 2 horas.
+          </div>
+          <button data-id="8" class="add-to-cart mt-4 bg-teal-700 text-white px-4 py-2 rounded-full font-semibold hover:bg-teal-600 transition w-full">Añadir al carrito</button>
+        </div>
+      </div>
+
+      <!-- TOUR 9 -->
+      <div class="tour-card bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+        <img src="fotos/WhatsApp Image 2025-06-29 at 16.04.40.jpeg" alt="Paravelismo" class="w-full h-52 object-cover">
+        <div class="p-6">
+          <h2 class="text-2xl font-bold text-teal-700 mb-1">Paravelismo</h2>
+          <p class="text-gray-600 text-sm mb-2">Disfruta vistas panorámicas y adrenalina pura en el aire.</p>
+          <p class="text-lg font-semibold text-gray-800 mb-2">$100 USD</p>
+          <button data-id="9" class="details-btn bg-yellow-400 text-gray-900 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 transition mb-2">Ver detalles</button>
+          <div id="details-9" class="mt-2 text-sm text-gray-700 hidden">
+            🪂 Vuelo seguro con instructor<br>📸 Fotos aéreas opcionales<br>⏱ 20-30 min.
+          </div>
+          <button data-id="9" class="add-to-cart mt-4 bg-teal-700 text-white px-4 py-2 rounded-full font-semibold hover:bg-teal-600 transition w-full">Añadir al carrito</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Cambiar color header en scroll
+      const header = document.getElementById('main-header');
+      if (header) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 50) {
+            header.classList.remove('bg-transparent');
+            header.classList.add('bg-black', 'bg-opacity-30');
+          } else {
+            header.classList.add('bg-transparent');
+            header.classList.remove('bg-black', 'bg-opacity-30');
+          }
+        });
+      }
+
+      // Menú hamburguesa
+      const menuIcon = document.querySelector(".menu-icon");
+      const navMenu = document.querySelector("nav ul");
+      if (menuIcon && navMenu) {
+        menuIcon.addEventListener("click", () => {
+          navMenu.classList.toggle("hidden");
+          navMenu.classList.toggle("flex");
+        });
+      }
+
+      // Mostrar/ocultar detalles del tour
+      document.querySelectorAll(".details-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const id = btn.dataset.id;
+          const detailsDiv = document.getElementById("details-" + id);
+          if (detailsDiv) {
+            const nowHidden = detailsDiv.classList.toggle("hidden");
+            // opcional: hacer scroll al detalle cuando se abre
+            if (!nowHidden) detailsDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        });
+      });
+
+      // Inicializar contador del carrito
+      function updateCartCount() {
+        const cartCountEl = document.getElementById("cart-count");
+        if (!cartCountEl) return;
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const totalQty = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
+        cartCountEl.innerText = totalQty;
+      }
+      updateCartCount();
+
+      // Añadir tours al carrito
+      document.querySelectorAll(".add-to-cart").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const card = btn.closest(".tour-card");
+          if (!card) return;
+          const titleEl = card.querySelector("h2");
+          const descEl = card.querySelector("p.text-gray-600");
+          const priceEl = card.querySelector("p.text-lg");
+          const imgEl = card.querySelector("img");
+          const title = titleEl ? titleEl.textContent.trim() : "Tour";
+          const description = descEl ? descEl.textContent.trim() : "";
+          const priceText = priceEl ? priceEl.textContent.trim() : "0";
+          const image = imgEl ? imgEl.getAttribute("src") : "";
+          const price = parseFloat(priceText.replace(/[^0-9.]/g, "")) || 0;
+          const tourId = btn.dataset.id || title;
+
+          let cart = JSON.parse(localStorage.getItem("cart")) || [];
+          const existing = cart.find(it => it.id === tourId);
+          if (existing) {
+            existing.quantity = (existing.quantity || 1) + 1;
+          } else {
+            cart.push({
+              id: tourId,
+              title,
+              description,
+              price,
+              image,
+              quantity: 1
+            });
+          }
+
+          localStorage.setItem("cart", JSON.stringify(cart));
+          updateCartCount();
+          // pequeño feedback sin ser intrusivo
+          btn.textContent = "Añadido ✓";
+          setTimeout(() => btn.textContent = "Añadir al carrito", 900);
+        });
+      });
+
+      // Dropdown perfil
+      const profileBtn = document.getElementById("profile-toggle");
+      const profileDropdown = document.getElementById("profile-dropdown");
+      if (profileBtn && profileDropdown) {
+        profileBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          profileDropdown.style.display = profileDropdown.style.display === "flex" ? "none" : "flex";
+        });
+
+        document.addEventListener("click", () => {
+          profileDropdown.style.display = "none";
+        });
+      }
+
+    });
+  </script>
+</body>
+</html>
