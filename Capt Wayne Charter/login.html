@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login | Capt. Wayne Charters</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-image: url('https://westbaycolonial.com/wp-content/uploads/2018/11/West-Bay-1.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1 class="text-3xl font-bold mb-6 text-center text-teal-700">Iniciar Sesión</h1>
+
+    <!-- Formulario de Login -->
+    <form id="login-form" class="space-y-4">
+      <div>
+        <label for="username" class="block font-semibold mb-1">Usuario</label>
+        <input id="username" type="text" placeholder="Tu usuario" required
+          class="w-full px-4 py-2 border rounded focus:outline-yellow-400" />
+      </div>
+      <div>
+        <label for="password" class="block font-semibold mb-1">Contraseña</label>
+        <input id="password" type="password" placeholder="Tu contraseña" required
+          class="w-full px-4 py-2 border rounded focus:outline-yellow-400" />
+      </div>
+      <button type="submit" class="w-full bg-teal-700 text-white py-2 rounded font-semibold hover:bg-teal-600 transition">
+        Entrar
+      </button>
+    </form>
+
+    <div class="my-6 flex items-center justify-between">
+      <hr class="w-1/4 border-gray-400">
+      <span class="text-gray-500 text-sm">o continua con</span>
+      <hr class="w-1/4 border-gray-400">
+    </div>
+
+    <!-- Botones sociales -->
+    <div class="space-y-3">
+      <a href="https://www.facebook.com/login" target="_blank"
+         onclick="guardarSesion('facebookUser')"
+         class="w-full flex items-center justify-center gap-3 border py-2 rounded hover:bg-blue-50 transition">
+        <img src="https://img.icons8.com/color/48/facebook-new.png" class="h-5 w-5" alt="Facebook" />
+        Iniciar con Facebook
+      </a>
+      <a href="https://accounts.google.com/signin" target="_blank"
+         onclick="guardarSesion('googleUser')"
+         class="w-full flex items-center justify-center gap-3 border py-2 rounded hover:bg-red-50 transition">
+        <img src="https://img.icons8.com/color/48/google-logo.png" class="h-5 w-5" alt="Google" />
+        Iniciar con Google
+      </a>
+      <a href="https://appleid.apple.com/sign-in" target="_blank"
+         onclick="guardarSesion('appleUser')"
+         class="w-full flex items-center justify-center gap-3 border py-2 rounded hover:bg-gray-100 transition">
+        <img src="https://img.icons8.com/ios-filled/50/000000/mac-os.png" class="h-5 w-5" alt="Apple" />
+        Iniciar con Apple ID
+      </a>
+    </div>
+
+    <div class="mt-6 text-center">
+      <p class="text-sm text-gray-600">¿No tienes una cuenta? 
+        <a href="#" onclick="mostrarRegistro()" class="text-teal-700 font-semibold hover:underline">Crear cuenta</a>
+      </p>
+    </div>
+
+    <!-- Mensaje de bienvenida -->
+    <div id="welcome" class="hidden text-center mt-6">
+      <p class="text-lg font-semibold text-teal-700 mb-4">¡Bienvenido!</p>
+    </div>
+
+    <!-- Formulario de Registro -->
+    <form id="register-form" class="space-y-4 hidden">
+      <h2 class="text-xl font-bold text-center text-teal-700 mb-4">Crear cuenta</h2>
+      <div>
+        <label for="new-username" class="block font-semibold mb-1">Usuario</label>
+        <input id="new-username" type="text" placeholder="Nuevo usuario" required
+          class="w-full px-4 py-2 border rounded focus:outline-yellow-400" />
+      </div>
+      <div>
+        <label for="new-email" class="block font-semibold mb-1">Correo electrónico</label>
+        <input id="new-email" type="email" placeholder="ejemplo@correo.com" required
+          class="w-full px-4 py-2 border rounded focus:outline-yellow-400" />
+      </div>
+      <div>
+        <label for="new-password" class="block font-semibold mb-1">Contraseña</label>
+        <input id="new-password" type="password" placeholder="Contraseña segura" required
+          class="w-full px-4 py-2 border rounded focus:outline-yellow-400" />
+      </div>
+      <button type="submit" class="w-full bg-teal-700 text-white py-2 rounded font-semibold hover:bg-teal-600 transition">
+        Registrar
+      </button>
+      <p class="text-center text-sm mt-4 text-gray-600">
+        ¿Ya tienes cuenta?
+        <a href="#" onclick="mostrarLogin()" class="text-teal-700 font-semibold hover:underline">Iniciar sesión</a>
+      </p>
+    </form>
+
+    <p id="error-msg" class="mt-4 text-red-600 text-center font-semibold hidden">Usuario o contraseña incorrectos.</p>
+  </div>
+
+<script>
+  const USER = {
+    username: 'admin',
+    password: '1234'
+  };
+
+  const loginForm = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+  const welcomeDiv = document.getElementById('welcome');
+  const errorMsg = document.getElementById('error-msg');
+
+  function mostrarBienvenida() {
+    loginForm.classList.add('hidden');
+    registerForm.classList.add('hidden');
+    errorMsg.classList.add('hidden');
+    welcomeDiv.classList.remove('hidden');
+  }
+
+  function mostrarLogin() {
+    loginForm.classList.remove('hidden');
+    registerForm.classList.add('hidden');
+    welcomeDiv.classList.add('hidden');
+    errorMsg.classList.add('hidden');
+  }
+
+  function mostrarRegistro() {
+    loginForm.classList.add('hidden');
+    registerForm.classList.remove('hidden');
+    welcomeDiv.classList.add('hidden');
+    errorMsg.classList.add('hidden');
+  }
+
+  window.onload = () => {
+    const loggedUser = localStorage.getItem('loggedUser');
+    if (loggedUser) {
+      mostrarBienvenida();
+    } else {
+      mostrarLogin();
+    }
+  };
+
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (username === USER.username && password === USER.password) {
+      localStorage.setItem('loggedUser', username);
+      window.location.href = 'index.html';
+    } else {
+      errorMsg.classList.remove('hidden');
+    }
+  });
+
+  function guardarSesion(nombreUsuario) {
+    localStorage.setItem('loggedUser', nombreUsuario);
+  }
+
+  registerForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const newUser = document.getElementById('new-username').value.trim();
+    // Aquí podrías guardar los datos en una base de datos real
+    localStorage.setItem('loggedUser', newUser);
+    mostrarBienvenida();
+  });
+</script>
+
+</body>
+</html>

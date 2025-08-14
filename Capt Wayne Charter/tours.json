@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explora Tours | Capt. Wayne Charters</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+  <h1 class="text-3xl font-bold mb-6">Nuestros Tours</h1>
+  <div id="tours-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+  <script>
+    // Cargar datos de la "API" (archivo local tours.json)
+    fetch('tours.json')
+      .then(res => res.json())
+      .then(tours => {
+        const container = document.getElementById('tours-container');
+        tours.forEach(tour => {
+          const card = document.createElement('div');
+          card.className = 'bg-white shadow-lg rounded-lg overflow-hidden';
+          card.innerHTML = `
+            <img src="${tour.imagen}" alt="${tour.titulo}" class="w-full h-48 object-cover">
+            <div class="p-4">
+              <h2 class="text-xl font-semibold">${tour.titulo}</h2>
+              <p class="text-gray-600">${tour.descripcion}</p>
+              <p class="text-blue-600 font-bold mt-2">$${tour.precio}</p>
+              <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Reservar</button>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(error => {
+        console.error("Error cargando los tours:", error);
+      });
+  </script>
+</body>
+</html>
